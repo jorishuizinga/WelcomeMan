@@ -1,0 +1,2 @@
+# WelcomeMan
+Greets players
