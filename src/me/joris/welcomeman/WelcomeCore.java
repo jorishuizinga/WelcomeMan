@@ -8,9 +8,12 @@ public class WelcomeCore extends JavaPlugin{
 	String DisableSuccess = ConsolePrefix + "Successfully disabled!";
 	
 	public void onEnable(){
+		getServer().getPluginManager().registerEvents(new WelcomeListener(), this);
 		System.out.println(EnableSuccess);
 	}
 	public void onDisable(){
 		System.out.println(DisableSuccess);
 	}
+	
+	
 }
