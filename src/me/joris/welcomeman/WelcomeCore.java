@@ -14,6 +14,4 @@ public class WelcomeCore extends JavaPlugin{
 	public void onDisable(){
 		System.out.println(DisableSuccess);
 	}
-	
-	
 }
