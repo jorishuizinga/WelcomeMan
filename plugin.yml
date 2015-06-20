@@ -1,0 +1,7 @@
+name: WelcomeMan
+main: me.joris.welcomeman.WelcomeCore
+version: 1.0
+descripton: Greets players
+
+author: Joris
+
