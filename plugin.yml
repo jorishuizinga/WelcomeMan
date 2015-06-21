@@ -5,3 +5,7 @@ descripton: Greets players
 
 author: Joris
 
+commands:
+    changename:
+      description: Change the username
+      usage: /<command> <name>
