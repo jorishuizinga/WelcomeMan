@@ -22,6 +22,9 @@ public class WelcomeCore extends JavaPlugin{
 	String NotEnoughArgs = NameManagementPrefix + ChatColor.RED + "Please specify a name!";
 	String TooManyArgs = NameManagementPrefix + ChatColor.RED + "Please specify one name!";
 	String error = NameManagementPrefix + ChatColor.RED + "Oops... something went wrong!";
+	String NoPermission = WelcomePrefix + ChatColor.RED + "Many permissions, such denied, much no. Wow.";
+	String NameChangePermission = "welcomeman.changename";
+	String NameChangePermissionOthers = "welcomeman.changename.others";
 	String username = "";
 	String ConfigName = ".Name";
 	String ConfigCustomName = ".CustomName";
@@ -42,11 +45,26 @@ public class WelcomeCore extends JavaPlugin{
 					player.sendMessage(NotEnoughArgs);
 					return true;
 				}else if(args.length == 1){
-					getConfig().set(player.getUniqueId().toString() + ConfigName, player.getName());
-					getConfig().set(player.getUniqueId().toString() + ConfigCustomName, args[0]);
-					player.sendMessage(NameSetSuccess);
-					return true;
-				}else if(args.length > 1){
+					if(player.hasPermission(NameChangePermission)){
+						getConfig().set(player.getUniqueId().toString() + ConfigName, player.getDisplayName());
+						getConfig().set(player.getUniqueId().toString() + ConfigCustomName, args[0]);
+						player.sendMessage(NameSetSuccess);
+						return true;
+					}else{
+						player.sendMessage(NoPermission);
+						return true;
+					}
+				}else if(args.length == 2){
+					if(player.hasPermission(NameChangePermissionOthers)){
+						Player target = Bukkit.getPlayer(args[0]);
+						getConfig().set(player.getUniqueId().toString() + ConfigName, player.getDisplayName());
+						getConfig().set(target.getUniqueId().toString() + ConfigName, target.getDisplayName());
+						getConfig().set(target.getUniqueId().toString() + ConfigCustomName, args[1]);
+					}else{
+						player.sendMessage(NoPermission);
+						return true;
+					}
+				}else if(args.length > 2){
 					player.sendMessage(TooManyArgs);
 					return true;
 				}else{
