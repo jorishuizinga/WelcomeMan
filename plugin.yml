@@ -1,0 +1,23 @@
+name: WelcomeMan
+main: me.joris.welcomeman.WelcomeCore
+version: 1.0
+descripton: Greets players
+
+author: Joris
+
+commands:
+    changename:
+      description: Change the username
+      usage: /<command> [Player] <name>
+permissions:
+    welcomeman.*:
+        description: Gives access to all WelcomeMan permissions
+        children:
+            welcomeman.changename: true
+            welcomeman.changename.others: true
+    welcomeman.changename:
+        description: Allows changing of custom name
+        default: true
+    welcomeman.changename.others:
+        description: Allows changing of other players' custom name
+        default: op
