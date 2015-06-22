@@ -1,4 +1,5 @@
 package me.joris.welcomeman;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -13,6 +14,11 @@ public class WelcomeCore extends JavaPlugin{
 	String EnableSuccess = ConsolePrefix + "Successfull enabled!";
 	String DisableSuccess = ConsolePrefix + "Successfully disabled!";
 	String NameSetSuccess = NameManagementPrefix + ChatColor.GREEN + "Name successfully set!";
+	String ConsoleNoPlayer = ConsolePrefix + "Please specify a player!";
+	String ConsoleNotEnoughArgs = ConsolePrefix + "Please specify a name!";
+	String ConsoleNameSetSuccess = ConsolePrefix + "Name successfully set!";
+	String ConsoleTooManyArgs = ConsolePrefix + "Please check your command formatting! Specify a player and a name";
+	String ConsoleError = ConsolePrefix + "Something went wrong!";
 	String NotEnoughArgs = NameManagementPrefix + ChatColor.RED + "Please specify a name!";
 	String TooManyArgs = NameManagementPrefix + ChatColor.RED + "Please specify one name!";
 	String error = NameManagementPrefix + ChatColor.RED + "Oops... something went wrong!";
@@ -48,8 +54,25 @@ public class WelcomeCore extends JavaPlugin{
 					return true;
 				}
 			}else{
-				//TODO Make that!
-				sender.sendMessage("This is not working yet!");
+				if(args.length == 0){
+					sender.sendMessage(ConsoleNoPlayer);
+					return true;
+				}else if(args.length == 1){
+					sender.sendMessage(ConsoleNotEnoughArgs);
+					return true;
+				}else if(args.length == 2){
+					Player target = Bukkit.getPlayer(args[0]);
+					getConfig().set(target.getUniqueId().toString() + ConfigName, target.getDisplayName());
+					getConfig().set(target.getUniqueId().toString() + ConfigCustomName, args[1]);
+					sender.sendMessage(ConsoleNameSetSuccess);
+					return true;
+				}else if(args.length > 2){
+					sender.sendMessage(ConsoleTooManyArgs);
+					return true;
+				}else{
+					sender.sendMessage(ConsoleError);
+					return true;
+				}
 			}
 		}
 		return false;
