@@ -1,10 +1,10 @@
 # WelcomeMan
 
-##WelcomeMan is a plugin that greets players when they join the server.
+###WelcomeMan is a plugin that greets players when they join the server.
 
 Players can set their own custom name with the `/changename` command
 
-The permission are
+The permissions are
 * welcomeman.changename
 * welcomeman.changename.others
 
