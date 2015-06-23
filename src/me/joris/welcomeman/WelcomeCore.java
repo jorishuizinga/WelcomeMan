@@ -42,19 +42,19 @@ public class WelcomeCore extends JavaPlugin{
 			if(sender instanceof Player){
 				Player player = (Player) sender;
 				if(args.length == 0){
-					getConfig().set(player.getUniqueId().toString() + ConfigName, player.getDisplayName());
+					updateUsername(player);
 					saveConfig();
 					player.sendMessage(NotEnoughArgs);
 					return true;
 				}else if(args.length == 1){
 					if(player.hasPermission(NameChangePermission)){
-						getConfig().set(player.getUniqueId().toString() + ConfigName, player.getDisplayName());
+						updateUsername(player);
 						getConfig().set(player.getUniqueId().toString() + ConfigCustomName, args[0]);
 						saveConfig();
 						player.sendMessage(NameSetSuccess);
 						return true;
 					}else{
-						getConfig().set(player.getUniqueId().toString() + ConfigName, player.getDisplayName());
+						updateUsername(player);
 						saveConfig();
 						player.sendMessage(NoPermission);
 						return true;
@@ -62,23 +62,23 @@ public class WelcomeCore extends JavaPlugin{
 				}else if(args.length == 2){
 					if(player.hasPermission(NameChangePermissionOthers)){
 						Player target = Bukkit.getPlayer(args[0]);
-						getConfig().set(player.getUniqueId().toString() + ConfigName, player.getDisplayName());
-						getConfig().set(target.getUniqueId().toString() + ConfigName, target.getDisplayName());
+						updateUsername(player);
+						updateUsername(target);
 						getConfig().set(target.getUniqueId().toString() + ConfigCustomName, args[1]);
 						saveConfig();
 					}else{
-						getConfig().set(player.getUniqueId().toString() + ConfigName, player.getUniqueId());
+						updateUsername(player);
 						saveConfig();
 						player.sendMessage(NoPermission);
 						return true;
 					}
 				}else if(args.length > 2){
-					getConfig().set(player.getUniqueId().toString() + ConfigName, player.getDisplayName());
+					updateUsername(player);
 					saveConfig();
 					player.sendMessage(TooManyArgs);
 					return true;
 				}else{
-					getConfig().set(player.getUniqueId().toString() + ConfigName, player.getDisplayName());
+					updateUsername(player);
 					saveConfig();
 					player.sendMessage(error);
 					return true;
@@ -92,7 +92,7 @@ public class WelcomeCore extends JavaPlugin{
 					return true;
 				}else if(args.length == 2){
 					Player target = Bukkit.getPlayer(args[0]);
-					getConfig().set(target.getUniqueId().toString() + ConfigName, target.getDisplayName());
+					updateUsername(target);
 					getConfig().set(target.getUniqueId().toString() + ConfigCustomName, args[1]);
 					saveConfig();
 					sender.sendMessage(ConsoleNameSetSuccess);
@@ -107,5 +107,9 @@ public class WelcomeCore extends JavaPlugin{
 			}
 		}
 		return false;
+	}
+	public boolean updateUsername(Player player){
+		getConfig().set(player.getUniqueId().toString() + ConfigName, player.getDisplayName());
+		return true;
 	}
 }
