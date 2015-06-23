@@ -42,6 +42,7 @@ public class WelcomeCore extends JavaPlugin{
 			if(sender instanceof Player){
 				Player player = (Player) sender;
 				if(args.length == 0){
+					getConfig().set(player.getUniqueId().toString() + ConfigName, player.getDisplayName());
 					player.sendMessage(NotEnoughArgs);
 					return true;
 				}else if(args.length == 1){
@@ -51,6 +52,7 @@ public class WelcomeCore extends JavaPlugin{
 						player.sendMessage(NameSetSuccess);
 						return true;
 					}else{
+						getConfig().set(player.getUniqueId().toString() + ConfigName, player.getDisplayName());
 						player.sendMessage(NoPermission);
 						return true;
 					}
@@ -61,13 +63,16 @@ public class WelcomeCore extends JavaPlugin{
 						getConfig().set(target.getUniqueId().toString() + ConfigName, target.getDisplayName());
 						getConfig().set(target.getUniqueId().toString() + ConfigCustomName, args[1]);
 					}else{
+						getConfig().set(player.getUniqueId().toString() + ConfigName, player.getUniqueId());
 						player.sendMessage(NoPermission);
 						return true;
 					}
 				}else if(args.length > 2){
+					getConfig().set(player.getUniqueId().toString() + ConfigName, player.getDisplayName());
 					player.sendMessage(TooManyArgs);
 					return true;
 				}else{
+					getConfig().set(player.getUniqueId().toString() + ConfigName, player.getDisplayName());
 					player.sendMessage(error);
 					return true;
 				}
