@@ -26,6 +26,7 @@ public class WelcomeListener implements Listener{
 		}else{
 			welcomeCore.username = welcomeCore.getConfig().getString(player.getUniqueId().toString() + welcomeCore.ConfigCustomName);
 		}
+		welcomeCore.updateUsername(player);
 		player.sendMessage("-----------------------------------------------------");
 		player.sendMessage(ChatColor.GRAY + "Hello" + " " + ChatColor.GOLD + welcomeCore.username + ChatColor.GRAY + ", " + "the time is" + " " + currentTime);
 		player.sendMessage(ChatColor.GRAY + "Enjoy your stay!");
