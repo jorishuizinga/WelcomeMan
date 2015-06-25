@@ -48,7 +48,7 @@ public class WelcomeCore extends JavaPlugin{
 				}else if(args.length == 1){
 					if(player.hasPermission(NameChangePermission)){
 						updateUsername(player);
-						getConfig().set(player.getUniqueId().toString() + ConfigCustomName, args[0]);
+						setCustomName(player, args[0]);
 						player.sendMessage(NameSetSuccess);
 						return true;
 					}else{
@@ -61,7 +61,7 @@ public class WelcomeCore extends JavaPlugin{
 						Player target = Bukkit.getPlayer(args[0]);
 						updateUsername(player);
 						updateUsername(target);
-						getConfig().set(target.getUniqueId().toString() + ConfigCustomName, args[1]);
+						setCustomName(target, args[1]);
 					}else{
 						updateUsername(player);
 						player.sendMessage(NoPermission);
@@ -86,7 +86,7 @@ public class WelcomeCore extends JavaPlugin{
 				}else if(args.length == 2){
 					Player target = Bukkit.getPlayer(args[0]);
 					updateUsername(target);
-					getConfig().set(target.getUniqueId().toString() + ConfigCustomName, args[1]);
+					setCustomName(target, args[1]);
 					sender.sendMessage(ConsoleNameSetSuccess);
 					return true;
 				}else if(args.length > 2){
@@ -102,6 +102,11 @@ public class WelcomeCore extends JavaPlugin{
 	}
 	public boolean updateUsername(Player player){
 		getConfig().set(player.getUniqueId().toString() + ConfigName, player.getDisplayName());
+		saveConfig();
+		return true;
+	}
+	public boolean setCustomName(Player player, String name){
+		getConfig().set(player.getUniqueId().toString() + ConfigCustomName, name);
 		saveConfig();
 		return true;
 	}
